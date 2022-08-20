@@ -13,7 +13,7 @@ do {
     }
 } while ((Quantity % 2 !== 0) || (Quantity < 4) || (Quantity > 14));
 
-let Cheap = [
+let Deck = [
     `<img src="images/1_bobrossparrot.gif" alt="Imagem não suportada ou indisponível">`,
     `<img src="images/2_explodyparrot.gif" alt="Imagem não suportada ou indisponível">`,
     `<img src="images/3_fiestaparrot.gif" alt="Imagem não suportada ou indisponível">`,
@@ -26,7 +26,7 @@ let Cheap = [
 let Distribution = [];
 
 for (let i = 0; i != parseInt(Quantity/2); i++) {
-    Distribution.push(Cheap[i], Cheap[i]);
+    Distribution.push(Deck[i], Deck[i]);
 }
 
 function comparador() { 
