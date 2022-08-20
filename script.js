@@ -1,43 +1,49 @@
-document.querySelector('.Board').innerHTML = '';
+let Quantity;
 
-let Quantity = 0;
-let Input;
+function Start() {
+    document.querySelector('.Board').innerHTML = '';
 
-do {
-    Input = prompt('Quantidade de cartas:');
-    if (!isNaN(Input)) {
-        Quantity = Number(Input);
-        if (Number.isInteger(Quantity)) {
-            Quantity = parseInt(Quantity);
+    Quantity = 0;
+    let Input;
+
+    do {
+        Input = prompt('Quantidade de cartas (4 ~ 14):');
+        if (!isNaN(Input)) {
+            Quantity = Number(Input);
+            if (Number.isInteger(Quantity)) {
+                Quantity = parseInt(Quantity);
+            }
         }
+    } while ((Quantity % 2 !== 0) || (Quantity < 4) || (Quantity > 14));
+
+    let Deck = [
+        `<img src="images/1_bobrossparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/2_explodyparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/3_fiestaparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/4_metalparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/5_revertitparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/6_tripletsparrot.gif" alt="Imagem não suportada ou indisponível">`,
+        `<img src="images/7_unicornparrot.gif" alt="Imagem não suportada ou indisponível">`
+    ];
+
+    let Distribution = [];
+
+    for (let i = 0; i != parseInt(Quantity/2); i++) {
+        Distribution.push(Deck[i], Deck[i]);
     }
-} while ((Quantity % 2 !== 0) || (Quantity < 4) || (Quantity > 14));
 
-let Cheap = [
-    `<img src="images/1_bobrossparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/2_explodyparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/3_fiestaparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/4_metalparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/5_revertitparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/6_tripletsparrot.gif" alt="Imagem não suportada ou indisponível">`,
-    `<img src="images/7_unicornparrot.gif" alt="Imagem não suportada ou indisponível">`
-];
+    function comparador() { 
+        return Math.random() - 0.5;
+    }
 
-let Distribution = [];
+    Distribution.sort(comparador);
 
-for (let i = 0; i != parseInt(Quantity/2); i++) {
-    Distribution.push(Cheap[i], Cheap[i]);
+    for (let i = 0; i < Quantity; i++) {
+        document.querySelector('.Board').innerHTML += `<div class="Card"><div class="Hidden">${Distribution[i]}</div><div class="Back" onclick="Turn(this)"><img src="images/back.png" alt="Imagem não suportada ou indisponível"></div></div>`;
+    }
 }
 
-function comparador() { 
-    return Math.random() - 0.5;
-}
-
-Distribution.sort(comparador);
-
-for (let i = 0; i < Quantity; i++) {
-    document.querySelector('.Board').innerHTML += `<div class="Card"><div class="Hidden">${Distribution[i]}</div><div class="Back" onclick="Turn(this)"><img src="images/back.png" alt="Imagem não suportada ou indisponível"></div></div>`;
-}
+Start();
 
 let Attempts = 0;
 let Revealed = 0;
@@ -79,6 +85,20 @@ function Turn(x) {
 function Won() {
     if (Revealed == Quantity) {
         alert(`Você ganhou em ${Attempts} jogadas!`);
+
+        let Play = undefined;
+
+        do {
+            Play = prompt('Deseja jogar novamente? (sim/não)');
+        } while (!['sim', 'não'].includes(Play));
+
+        if (Play == 'sim') {
+            Attempts = 0;
+            Revealed = 0;
+            Save1 = undefined;
+            Save2 = undefined;
+            Start();
+        }
     }
 }
 
