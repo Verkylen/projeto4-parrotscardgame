@@ -4,7 +4,7 @@ let Quantity = 0;
 let Input;
 
 do {
-    Input = prompt('Quantidade de cartas:');
+    Input = prompt('Quantidade de cartas (4 ~ 14):');
     if (!isNaN(Input)) {
         Quantity = Number(Input);
         if (Number.isInteger(Quantity)) {
