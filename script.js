@@ -49,10 +49,11 @@ let Attempts = 0;
 let Revealed = 0;
 let Save1;
 let Save2;
-let Wait = false;
+let Wait1 = false;
+let Wait2 = false;
 
 function Switch() {
-    Wait = false;
+    Wait2 = false;
 }
 
 function Cover() {
@@ -61,16 +62,16 @@ function Cover() {
 
     Save2.parentNode.querySelector('.Visible').classList.remove('Visible');
     Save2.classList.remove('Hidden');
-    Wait = false;
+    Wait1 = false;
 }
 
 function Turn(x) {
-    if (!Wait) {
-        Wait = true;
-        setTimeout(Switch, 500);
+    if (!Wait1 && !Wait2) {
+        Wait2 = true;
 
         x.parentNode.querySelector('.Hidden').classList.add('Visible');
         x.classList.add('Hidden');
+        setTimeout(Switch, 500);
 
         Attempts++;
         Revealed++;
@@ -81,7 +82,7 @@ function Turn(x) {
         } else if (x.parentNode.querySelector('.Visible').innerHTML != Save1.parentNode.querySelector('.Visible').innerHTML) {
             Revealed -= 2;
             Save2 = x;
-            Wait = true;
+            Wait1 = true;
             setTimeout(Cover, 1000);
         }
     }
