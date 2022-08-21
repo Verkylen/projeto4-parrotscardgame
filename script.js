@@ -51,6 +51,10 @@ let Save1;
 let Save2;
 let Wait = false;
 
+function Switch() {
+    Wait = false;
+}
+
 function Cover() {
     Save1.parentNode.querySelector('.Visible').classList.remove('Visible');
     Save1.classList.remove('Hidden');
@@ -62,6 +66,9 @@ function Cover() {
 
 function Turn(x) {
     if (!Wait) {
+        Wait = true;
+        setTimeout(Switch, 500);
+
         x.parentNode.querySelector('.Hidden').classList.add('Visible');
         x.classList.add('Hidden');
 
